@@ -1,0 +1,3 @@
+// Previous header code remains the same, but update the HEADER_HEIGHT constant
+const HEADER_HEIGHT = 104; // 80px header + 24px padding
+

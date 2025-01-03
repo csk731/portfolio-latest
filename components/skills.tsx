@@ -3,27 +3,21 @@
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { motion } from 'framer-motion'
-
-const skills = [
-  { category: "Languages", items: ["JavaScript", "TypeScript", "Python", "Java"] },
-  { category: "Frontend", items: ["React", "Next.js", "Vue.js", "HTML5", "CSS3", "Sass"] },
-  { category: "Backend", items: ["Node.js", "Express", "Django", "Spring Boot"] },
-  { category: "Databases", items: ["MongoDB", "PostgreSQL", "MySQL", "Redis"] },
-  { category: "DevOps", items: ["Docker", "Kubernetes", "AWS", "CI/CD", "Git"] },
-  { category: "Other", items: ["RESTful APIs", "GraphQL", "Agile Methodologies", "Unit Testing"] },
-]
+import skillsContent from '@/data/skills'
 
 export default function Skills() {
   return (
-    <section id="skills" className="pt-24 md:pt-32 pb-16 md:pb-24">
+    <section id="skills" className="pt-4 pb-4 md:pt-4 md:pb-4">
       <h2 className="text-3xl font-bold mb-12 text-center">Skills & Expertise</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto px-4">
-        {skills.map((skillSet, index) => (
+        {skillsContent.map((skillSet, index) => (
           <motion.div
             key={skillSet.category}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.9 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
             viewport={{ once: true }}
           >
             <Card className="h-full overflow-hidden hover:shadow-lg transition-shadow duration-300">

@@ -2,25 +2,11 @@
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-
-const aboutContent = {
-  "title": "About Me",
-  "image": {
-    "src": "/placeholder.svg",
-    "alt": "DevName",
-    "width": 400,
-    "height": 400
-  },
-  "paragraphs": [
-    "Hello! I'm DevName, a passionate software developer with a keen interest in building innovative and user-friendly applications. With a strong foundation in computer science and years of hands-on experience, I specialize in creating efficient, scalable, and maintainable code.",
-    "My journey in tech began with a fascination for problem-solving, which led me to pursue a degree in Computer Science. Since then, I've worked on a diverse range of projects, from web applications to mobile apps and everything in between.",
-    "When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, or sharing my knowledge through tech blogs and community meetups. I'm always excited about taking on new challenges and collaborating with like-minded individuals to create impactful solutions."
-  ]
-}
+import aboutContent from '@/data/about'
 
 export default function About() {
   return (
-    <section id="about" className="scroll-mt-[104px] py-16 md:py-24">
+    <section id="about" className="scroll-mt-[104px] py-8 md:py-8">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -43,8 +29,8 @@ export default function About() {
             <Image
               src={aboutContent.image.src}
               alt={aboutContent.image.alt}
-              width={aboutContent.image.width}
-              height={aboutContent.image.height}
+              width={400}
+              height={400}
               className="rounded-full mx-auto w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 object-cover"
             />
           </motion.div>

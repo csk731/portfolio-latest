@@ -7,17 +7,11 @@ import { Menu, X } from 'lucide-react'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTheme } from 'next-themes'
+import headerContent from '@/data/header'
+import { CloudDownload } from 'lucide-react';
 
 const HEADER_HEIGHT = 104; // 80px header + 24px padding
-
-const navItems = [
-  { name: 'About', href: '#about' },
-  { name: 'Skills', href: '#skills' },
-  { name: 'Education', href: '#education' },
-  { name: 'Experience', href: '#experience' },
-  { name: 'Projects', href: '#projects' },
-  { name: 'Contact', href: '#contact' },
-]
+const navItems = headerContent.navItems
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -85,7 +79,7 @@ export default function Header() {
       <div className="container mx-auto bg-background/80 backdrop-blur-md border border-border/40 rounded-full shadow-lg">
         <div className="flex h-16 items-center justify-between px-4">
           <Link className="flex items-center space-x-2 shrink-0" href="/">
-            <span className="font-bold text-xl">CodeCraftsman</span>
+            <span className="font-bold text-xl">{headerContent.title}</span>
           </Link>
           <nav className="hidden lg:flex items-center space-x-1">
             {navItems.map((item) => (
@@ -103,7 +97,14 @@ export default function Header() {
             <div className="hidden lg:block">
               <ThemeToggle />
             </div>
-            <Button className="hidden lg:inline-flex">Download CV</Button>
+            <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+              <a target="_blank" download href={headerContent.resumeLink}>
+                <Button className="hidden lg:inline-flex rounded-full">Download Resume <CloudDownload/>  </Button>
+              </a>
+            </motion.div>
             <Button
               variant="ghost"
               className="lg:hidden"
@@ -138,7 +139,14 @@ export default function Header() {
               <div className="flex justify-center w-full">
                 <ThemeToggle />
               </div>
-              <Button className="w-full">Download CV</Button>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <a target="_blank" download href={headerContent.resumeLink}>
+                  <Button className="w-full rounded-full">Download Resume <CloudDownload/>  </Button>
+                </a>
+              </motion.div>
             </nav>
           </motion.div>
         )}

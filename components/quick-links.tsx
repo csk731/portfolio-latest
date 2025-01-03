@@ -1,22 +1,16 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Github, Linkedin, Twitter } from 'lucide-react'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
+import quickLinksContent from '@/data/quick-links'
 
-const status = '🚀 Open to work! Looking for Full-Time Software Engineering roles.'
-
-const links = [
-  { name: 'GitHub', icon: Github, url: 'https://github.com/codecraftsman' },
-  { name: 'LinkedIn', icon: Linkedin, url: 'https://linkedin.com/in/codecraftsman' },
-  { name: 'Twitter', icon: Twitter, url: 'https://twitter.com/codecraftsman' },
-]
+const { statusOne, statusTwo, statusThree, links } = quickLinksContent
 
 export default function QuickLinks() {
   return (
-    <div className='space-y-6'>
+    <div className="space-y-6">
       <div>
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
@@ -25,23 +19,36 @@ export default function QuickLinks() {
         >
           <Card className="bg-primary/10 border-primary/20">
             <CardHeader className="pb-3">
-              <CardTitle className="text-primary text-2xl">Status &#128204;</CardTitle>
+              <CardTitle className="text-primary text-2xl">
+                Status &#128204;
+              </CardTitle>
             </CardHeader>
-            <CardContent>
-              <p className="text-sm leading-relaxed"> {status} </p>
+            <CardContent className="max-h-28 overflow-y-auto flex flex-wrap gap-2 cursor-pointer">
+              {statusOne && (
+                <span className="inline-flex items-center rounded-md bg-primary/20 px-3 py-1 text-sm">
+                  {statusOne}
+                </span>
+              )}
+              {statusTwo && (
+                <span className="inline-flex items-center rounded-md bg-primary/20 px-3 py-1 text-sm">
+                  {statusTwo}
+                </span>
+              )}
+              {statusThree && (
+                <span className="inline-flex items-center rounded-md bg-primary/20 px-3 py-1 text-sm">
+                  {statusThree}
+                </span>
+              )}
             </CardContent>
           </Card>
-      </motion.div>
+        </motion.div>
       </div>
-      
+
       <Card className="w-full backdrop-blur-sm bg-background/80 border-border/40">
         <CardHeader className="space-y-1 pb-4">
           <CardTitle className="text-2xl">Quick Links &#128279;</CardTitle>
-          <CardDescription className="text-sm">
-            Links to my profiles.
-          </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-3">
+        <CardContent className="max-h-48 overflow-y-scroll scrollbar-thin scrollbar-thumb-primary/50 scrollbar-track-transparent space-y-3 pb-4">
           {links.map((link, index) => (
             <motion.div
               key={link.name}
@@ -49,14 +56,14 @@ export default function QuickLinks() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: index * 0.1 }}
             >
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 className="w-full justify-start h-12 text-base hover:scale-[1.02] transition-transform"
                 asChild
               >
-                <a 
-                  href={link.url} 
-                  target="_blank" 
+                <a
+                  href={link.url}
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center"
                 >
@@ -70,6 +77,6 @@ export default function QuickLinks() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }
 

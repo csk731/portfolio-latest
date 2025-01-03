@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import emailjsConfig from '@/data/contact';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -28,11 +29,11 @@ export default function Contact() {
 
     setStatus('loading')
 
-    const serviceId = 'service_y11ysd1'
-    const templateId = 'template_3zuj4ml'
-    const userId = 'rEwE1cPHW28u0_OTG'
+    const serviceId = emailjsConfig.serviceId
+    const templateId = emailjsConfig.templateId
+    const publicKey = emailjsConfig.publicKey
 
-    emailjs.sendForm(serviceId, templateId, formRef.current, userId)
+    emailjs.sendForm(serviceId, templateId, formRef.current, publicKey)
       .then(() => {
         setStatus('success')
         setTimeout(() => setStatus('idle'), 3000)
@@ -64,11 +65,11 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="pt-24 md:pt-32 pb-16 md:pb-24">
+    <section id="contact" className="pt-4 pb-4 md:pt-4 md:pb-4">
       <h2 className="text-3xl font-bold mb-8 text-center">Get in Touch</h2>
       <Card className="max-w-2xl mx-auto">
         <CardHeader>
-          <CardTitle>Contact Me</CardTitle>
+          <CardTitle className='mb-2'>Contact Me</CardTitle>
           <CardDescription>Fill out the form below and submit. I'll get back to you as soon as possible to your email.</CardDescription>
         </CardHeader>
         <CardContent>

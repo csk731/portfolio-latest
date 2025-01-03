@@ -1,10 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import React, { useRef, useState } from 'react'
+import emailjs from 'emailjs-com'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { useToast } from '@/components/ui/use-toast'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 
 export default function Contact() {
@@ -13,7 +13,8 @@ export default function Contact() {
     email: '',
     message: ''
   })
-  const { toast } = useToast()
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error' | 'validationError'>('idle')
+  const formRef = useRef<HTMLFormElement>(null)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -22,13 +23,44 @@ export default function Contact() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // Here you would typically send the form data to your backend
-    console.log('Form submitted:', formData)
-    toast({
-      title: "Message Sent",
-      description: "Thank you for your message. We'll get back to you soon!",
-    })
-    setFormData({ name: '', email: '', message: '' })
+
+    if (!formRef.current) return
+
+    setStatus('loading')
+
+    const serviceId = 'service_y11ysd1'
+    const templateId = 'template_3zuj4ml'
+    const userId = 'rEwE1cPHW28u0_OTG'
+
+    emailjs.sendForm(serviceId, templateId, formRef.current, userId)
+      .then(() => {
+        setStatus('success')
+        setTimeout(() => setStatus('idle'), 3000)
+        setFormData({ name: '', email: '', message: '' })
+      })
+      .catch((error) => {
+        if (error.status === 422) {
+          setStatus('validationError')
+        } else {
+          setStatus('error')
+        }
+        setTimeout(() => setStatus('idle'), 3000)
+      })
+  }
+
+  const getButtonContent = () => {
+    switch (status) {
+      case 'loading':
+        return 'Sending...'
+      case 'success':
+        return '✓ Sent Successfully'
+      case 'error':
+        return '✕ Error Sending'
+      case 'validationError':
+        return '✕ Validation Error. Check your email and try again!'
+      default:
+        return 'Send Message'
+    }
   }
 
   return (
@@ -37,12 +69,12 @@ export default function Contact() {
       <Card className="max-w-2xl mx-auto">
         <CardHeader>
           <CardTitle>Contact Me</CardTitle>
-          <CardDescription>Fill out the form below and I'll get back to you as soon as possible.</CardDescription>
+          <CardDescription>Fill out the form below and submit. I'll get back to you as soon as possible to your email.</CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium mb-1">Name</label>
+              <label htmlFor="name" className="block text-sm font-medium mb-1">Your Name</label>
               <Input
                 id="name"
                 name="name"
@@ -52,7 +84,7 @@ export default function Contact() {
               />
             </div>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium mb-1">Email</label>
+              <label htmlFor="email" className="block text-sm font-medium mb-1">Your Email (* to receive replies directly to your email)</label>
               <Input
                 id="email"
                 name="email"
@@ -63,7 +95,7 @@ export default function Contact() {
               />
             </div>
             <div>
-              <label htmlFor="message" className="block text-sm font-medium mb-1">Message</label>
+              <label htmlFor="message" className="block text-sm font-medium mb-1">Enter your message</label>
               <Textarea
                 id="message"
                 name="message"
@@ -73,11 +105,22 @@ export default function Contact() {
                 rows={5}
               />
             </div>
-            <Button type="submit" className="w-full">Send Message</Button>
+            <Button
+              type="submit"
+              className={`w-full ${
+                status === 'success'
+                  ? 'bg-green-500 hover:bg-green-600'
+                  : status === 'error' || status === 'validationError'
+                  ? 'bg-red-500 hover:bg-red-600'
+                  : ''
+              }`}
+              disabled={status === 'loading'}
+            >
+              {getButtonContent()}
+            </Button>
           </form>
         </CardContent>
       </Card>
     </section>
   )
 }
-

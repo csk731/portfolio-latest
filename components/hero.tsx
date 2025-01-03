@@ -1,36 +1,36 @@
 'use client'
 
+import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { ArrowRight } from 'lucide-react'
 import QuickLinks from './quick-links'
-import { motion } from 'framer-motion'
 
 export default function Hero() {
   const scrollToProjects = () => {
     const projectsSection = document.getElementById('projects')
     if (projectsSection) {
-      const headerOffset = 104;
-      const elementPosition = projectsSection.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-      
+      const headerOffset = 104
+      const elementPosition = projectsSection.getBoundingClientRect().top
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset
+
       window.scrollTo({
         top: offsetPosition,
-        behavior: 'smooth'
-      });
+        behavior: 'smooth',
+      })
     }
   }
 
   const scrollToContact = () => {
     const contactSection = document.getElementById('contact')
     if (contactSection) {
-      const headerOffset = 104;
-      const elementPosition = contactSection.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-      
+      const headerOffset = 104
+      const elementPosition = contactSection.getBoundingClientRect().top
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset
+
       window.scrollTo({
         top: offsetPosition,
-        behavior: 'smooth'
-      });
+        behavior: 'smooth',
+      })
     }
   }
 
@@ -38,7 +38,8 @@ export default function Hero() {
     <section className="min-h-[calc(100vh-104px)] flex items-center py-12 sm:py-20">
       <div className="container px-4 mx-auto">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 lg:gap-16">
-          <motion.div 
+          {/* Left content (heading, subheading, buttons) */}
+          <motion.div
             className="flex-1 text-center lg:text-left"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -51,26 +52,42 @@ export default function Hero() {
             <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0">
               Crafting elegant solutions to complex problems. Passionate about creating intuitive and efficient software that makes a difference.
             </p>
+
             <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Button 
-                size="lg" 
-                className="w-full sm:w-auto text-base py-6"
-                onClick={scrollToProjects}
+              {/* Hover animation for Button #1 */}
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                View My Work
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="w-full sm:w-auto text-base py-6"
-                onClick={scrollToContact}
+                <Button
+                  size="lg"
+                  className="w-full sm:w-auto text-base py-6"
+                  onClick={scrollToProjects}
+                >
+                  View My Work
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </motion.div>
+
+              {/* Hover animation for Button #2 */}
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                Contact Me
-              </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="w-full sm:w-auto text-base py-6"
+                  onClick={scrollToContact}
+                >
+                  Contact Me
+                </Button>
+              </motion.div>
             </div>
           </motion.div>
-          <motion.div 
+
+          {/* Right content (QuickLinks) */}
+          <motion.div
             className="w-full lg:w-[400px] max-w-md mx-auto lg:mx-0"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -83,4 +100,3 @@ export default function Hero() {
     </section>
   )
 }
-

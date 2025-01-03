@@ -22,19 +22,38 @@ export default function Skills() {
           <motion.div
             key={skillSet.category}
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
+            viewport={{ once: true }}
           >
             <Card className="h-full overflow-hidden hover:shadow-lg transition-shadow duration-300">
               <CardHeader className="bg-gradient-to-r from-primary/10 to-secondary/10">
-                <CardTitle className="text-xl font-semibold text-primary">{skillSet.category}</CardTitle>
+                <CardTitle className="text-xl font-semibold text-primary">
+                  {skillSet.category}
+                </CardTitle>
               </CardHeader>
               <CardContent className="pt-6">
                 <div className="flex flex-wrap gap-2">
-                  {skillSet.items.map((skill) => (
-                    <Badge key={skill} variant="secondary" className="text-sm py-1 px-2 bg-secondary/20 hover:bg-secondary/30 transition-colors duration-200">
-                      {skill}
-                    </Badge>
+                  {skillSet.items.map((skill, skillIndex) => (
+                    <motion.div
+                      key={skill}
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      whileInView={{ scale: 1, opacity: 1 }}
+                      whileHover={{ scale: 1.1, cursor: 'pointer' }}
+                      transition={{
+                        duration: 0.3,
+                        delay: skillIndex * 0.03,
+                        type: 'spring',
+                      }}
+                      viewport={{ once: true }}
+                    >
+                      <Badge
+                        variant="secondary"
+                        className="text-sm py-1 px-2 bg-secondary/20 hover:bg-secondary/30 transition-colors duration-200"
+                      >
+                        {skill}
+                      </Badge>
+                    </motion.div>
                   ))}
                 </div>
               </CardContent>
@@ -45,4 +64,3 @@ export default function Skills() {
     </section>
   )
 }
-

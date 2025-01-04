@@ -8,8 +8,10 @@ import skillsContent from '@/data/skills'
 export default function Skills() {
   return (
     <section id="skills" className="pt-4 pb-4 md:pt-4 md:pb-4">
-      <h2 className="text-3xl font-bold mb-12 text-center">Skills & Expertise</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto px-4">
+      <h2 className="text-3xl font-bold mb-12 text-center">
+        Skills & Expertise
+      </h2>
+      <div className="grid gap-8 w-full mx-auto px-4 grid-cols-[repeat(auto-fit,minmax(250px,1fr))]">
         {skillsContent.map((skillSet, index) => (
           <motion.div
             key={skillSet.category}
@@ -33,11 +35,11 @@ export default function Skills() {
                       key={skill}
                       initial={{ scale: 0.8, opacity: 0 }}
                       whileInView={{ scale: 1, opacity: 1 }}
-                      whileHover={{ scale: 1.1, cursor: 'pointer' }}
+                      whileHover={{ scale: 1.1, cursor: "pointer" }}
                       transition={{
                         duration: 0.3,
                         delay: skillIndex * 0.03,
-                        type: 'spring',
+                        type: "spring",
                       }}
                       viewport={{ once: true }}
                     >
@@ -56,5 +58,5 @@ export default function Skills() {
         ))}
       </div>
     </section>
-  )
+  );
 }

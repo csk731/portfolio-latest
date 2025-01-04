@@ -31,7 +31,7 @@ export default function About() {
               alt={aboutContent.image.alt}
               width={400}
               height={400}
-              className="rounded-full mx-auto w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 object-cover"
+              className="mx-auto w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 object-cover rounded-lg"
             />
           </motion.div>
 

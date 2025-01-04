@@ -17,7 +17,7 @@ export default function QuickLinks() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3, delay: 0.3 }}
         >
-          <Card className="bg-primary/10 border-primary/20">
+          <Card className="bg-primary/10 border-primary/10">
             <CardHeader className="pb-3">
               <CardTitle className="text-primary text-2xl">
                 Status &#128204;
@@ -44,7 +44,7 @@ export default function QuickLinks() {
         </motion.div>
       </div>
 
-      <Card className="w-full backdrop-blur-sm bg-background/80 border-border/40">
+      <Card className="w-full backdrop-blur-sm bg-background/80 border-border/40 shadow-xl">
         <CardHeader className="space-y-1 pb-4">
           <CardTitle className="text-2xl">Quick Links &#128279;</CardTitle>
         </CardHeader>
